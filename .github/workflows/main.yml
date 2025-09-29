@@ -1,0 +1,21 @@
+    name: Run Inline Bash Commands
+
+    on:
+      workflow_dispatch: 
+
+    jobs:
+      run-bash-commands:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+
+          - name: Execute Bash commands
+            run: |
+              pkill -f Xvfb
+              pkill -f x11vnc
+              pkill -f websockify
+
+              Xvfb :0 -screen 0 1280x800x16 &
+              export DISPLAY=:0
+              fluxbox &
